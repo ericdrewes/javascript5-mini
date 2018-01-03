@@ -74,7 +74,12 @@ var customers = [
 // Create and array of all email addresses
 // first without using underscore's pluck, then with it.
 
-_.each;
+_.pluck(customers, 'email');
+
+// long-hand version below:
+function emails(arr) {
+	return arr.map(customer => customer.email);
+}
 
 var inviteList1 = ['Ed', 'Fanny', 'Mildred', 'Alice', 'James'];
 var inviteList2 = ['Jake', 'Mildred', 'Jimmy', 'Ed', 'Franklin'];
@@ -82,6 +87,9 @@ var inviteList2 = ['Jake', 'Mildred', 'Jimmy', 'Ed', 'Franklin'];
 // Uh oh! We are having a party and two invite lists were created.
 // Create one list of the people we want at the party (no duplicates).
 // Then remove all duplicates using _.union().
+
+_.union(inviteList1, inviteList2);
+
 
 var friendsOfJim = ['Tom', 'Carina', 'Rex', 'Jane', 'Greg', 'Nancy', 'Alison', 'Goose'];
 var friendsOfBetty = [
@@ -97,6 +105,14 @@ var friendsOfBetty = [
 ];
 
 // Jim and Betty are having a party, but they only want to invite mutual friends. Create and array of mutual friends. First without using underscore, then using underscores _.intersection().
+
+_.intersection(friendsOfJim, friendsOfBetty);
+
+
+// long-hand version below:
+function mutual(initial, compare) {
+	return initial.filter(val => compare.includes(val));
+}
 
 var purchases = [
 	{
@@ -133,5 +149,24 @@ var purchases = [
 	}
 ];
 
+
+
 // First, group the purchases by company without underscore
 // then do it again using _.groupBy()
+
+_.groupBy(purchases, 'company');
+
+//long-hand version below:
+function companyGroup(arr) {
+	const companies = {};
+	arr.forEach(val => {
+		if(!companies.hasOwnProperty(val.company)){
+			companies[val.company] = [];
+		}
+		companies[val.company].push(val)
+	});
+	return companies;
+}
+
+
+
